@@ -1,7 +1,7 @@
 package org.example.views;
 
 import org.example.exceptions.UsuarioRepetidoException;
-import org.example.controllers.UsuarioController;
+import org.example.controllers.EmpresaElectricaController;
 import org.example.dtos.UsuarioResidencialDTO;
 import org.example.models.Direccion;
 
@@ -10,7 +10,7 @@ import java.awt.*;
 
 public class AgregarUsuarioResidencial extends JFrame {
 
-    private UsuarioController usuarioController = UsuarioController.getINSTANCE();
+    private EmpresaElectricaController empresaElectricaController = EmpresaElectricaController.getINSTANCE();
 
     private JLabel nombreLabel;
     private JTextField nombreTXT;
@@ -143,7 +143,7 @@ public class AgregarUsuarioResidencial extends JFrame {
             Direccion direccion = new Direccion(calle, altura, piso, depto, codigoPostal, localidad, provincia);
             UsuarioResidencialDTO usuarioResidencialDTO = new UsuarioResidencialDTO(nombre, DNI, direccion);
 
-            usuarioController.agregarUsuarioResidencial(usuarioResidencialDTO);
+            empresaElectricaController.agregarUsuarioResidencial(usuarioResidencialDTO);
             JOptionPane.showMessageDialog(null, "Usuario residencial " + nombre + " agregado con éxito.");
             System.out.println(usuarioResidencialDTO);
 

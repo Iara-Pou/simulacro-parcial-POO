@@ -7,14 +7,14 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UsuarioControllerTest {
+class EmpresaElectricaControllerTest {
 
-    UsuarioController usuarioController;
+    EmpresaElectricaController empresaElectricaController;
     UsuarioResidencialDTO usuarioResidencialDTO;
 
     @BeforeEach
     void setUp() {
-        usuarioController = UsuarioController.getINSTANCE();
+        empresaElectricaController = EmpresaElectricaController.getINSTANCE();
 
         usuarioResidencialDTO = new UsuarioResidencialDTO(
                 "Iara",
@@ -34,30 +34,30 @@ class UsuarioControllerTest {
     @AfterEach
     void tearDown() {
         // Limpiar los datos para que no se arrastren entre tests
-        usuarioController.reset();
+        empresaElectricaController.reset();
     }
 
     @Test
     @DisplayName("Agregar un usuario y verificar que fue almacenado correctamente")
     void agregarUsuarioResidencial() throws Exception {
-        usuarioController.agregarUsuarioResidencial(usuarioResidencialDTO);
+        empresaElectricaController.agregarUsuarioResidencial(usuarioResidencialDTO);
 
-        UsuarioResidencial usuarioResidencial = usuarioController.parsearDTO(usuarioResidencialDTO);
+        UsuarioResidencial usuarioResidencial = empresaElectricaController.parsearDTO(usuarioResidencialDTO);
 
         assertAll("Verificar que el usuario se agregó correctamente",
-                () -> assertNotNull(usuarioController.obtenerUsuariosResidenciales()),
-                () -> assertEquals(1, usuarioController.obtenerUsuariosResidenciales().size()),
-                () -> assertTrue(usuarioController.usuarioResidencialExiste(usuarioResidencial))
+                () -> assertNotNull(empresaElectricaController.obtenerUsuariosResidenciales()),
+                () -> assertEquals(1, empresaElectricaController.obtenerUsuariosResidenciales().size()),
+                () -> assertTrue(empresaElectricaController.usuarioResidencialExiste(usuarioResidencial))
         );
     }
 
     @Test
     @DisplayName("Verificar si un usuario ya existe después de agregarlo")
     void usuarioResidencialExiste() throws Exception {
-        usuarioController.agregarUsuarioResidencial(usuarioResidencialDTO);
+        empresaElectricaController.agregarUsuarioResidencial(usuarioResidencialDTO);
 
-        UsuarioResidencial usuarioResidencial = usuarioController.parsearDTO(usuarioResidencialDTO);
-        boolean existe = usuarioController.usuarioResidencialExiste(usuarioResidencial);
+        UsuarioResidencial usuarioResidencial = empresaElectricaController.parsearDTO(usuarioResidencialDTO);
+        boolean existe = empresaElectricaController.usuarioResidencialExiste(usuarioResidencial);
 
         assertTrue(existe, "El usuario debería existir en la lista");
     }
@@ -71,7 +71,7 @@ class UsuarioControllerTest {
         UsuarioResidencial usuario1 = new UsuarioResidencial("Iara", 43262782, direccion);
         UsuarioResidencial usuario2 = new UsuarioResidencial("Iara", 43262782, direccion);
 
-        boolean sonIguales = usuarioController.usuariosSonIguales(usuario1, usuario2);
+        boolean sonIguales = empresaElectricaController.usuariosSonIguales(usuario1, usuario2);
 
         assertTrue(sonIguales, "Los usuarios deberían considerarse iguales");
     }
@@ -85,7 +85,7 @@ class UsuarioControllerTest {
                 usuarioResidencialDTO.getDireccion()
         );
 
-        UsuarioResidencial resultado = usuarioController.parsearDTO(usuarioResidencialDTO);
+        UsuarioResidencial resultado = empresaElectricaController.parsearDTO(usuarioResidencialDTO);
 
         assertAll("Comparar campos del usuario parseado",
                 () -> assertNotNull(resultado),

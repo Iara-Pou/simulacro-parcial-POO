@@ -9,24 +9,21 @@ import org.example.models.UsuarioResidencial;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsuarioController {
-    private List<UsuarioResidencial> usuariosResidenciales;
-    private List<UsuarioIndustrial> usuariosIndustriales;
-    private static UsuarioController INSTANCE;
+public class EmpresaElectricaController {
+    private List<Usuario> usuarios;
+    private static EmpresaElectricaController INSTANCE;
 
-    private UsuarioController() {
-        usuariosResidenciales = new ArrayList<>();
-        usuariosIndustriales = new ArrayList<>();
+    private EmpresaElectricaController() {
+        usuarios = new ArrayList<>();
     }
 
-    public static synchronized UsuarioController getINSTANCE() {
-        if (INSTANCE == null) INSTANCE = new UsuarioController();
+    public static synchronized EmpresaElectricaController getINSTANCE() {
+        if (INSTANCE == null) INSTANCE = new EmpresaElectricaController();
         return INSTANCE;
     }
 
     public void reset(){
-        usuariosResidenciales = new ArrayList<>();
-        usuariosIndustriales = new ArrayList<>();
+        usuarios = new ArrayList<>();
     }
 
 
@@ -44,15 +41,16 @@ public class UsuarioController {
 
         if (usuarioResidencialExiste(usuarioNuevo)) throw new UsuarioRepetidoException("El usuario ya existe.");
 
-        usuariosResidenciales.add(usuarioNuevo);
+        usuarios.add(usuarioNuevo);
         System.out.println("USUARIO AGREGADO: " + usuarioNuevo);
 
     }
 
     //si existe por datos, dar error
     public boolean usuarioResidencialExiste(UsuarioResidencial usuarioNuevo) {
-        for (Usuario usuario : usuariosResidenciales) {
-            if (usuariosSonIguales(usuarioNuevo, usuario)) return true;
+        for (Usuario usuario : usuarios) {
+            if (usuario instanceof UsuarioResidencial &&
+                    usuariosSonIguales(usuarioNuevo, usuario)) return true;
         }
         return false;
     }
@@ -91,9 +89,11 @@ public class UsuarioController {
 
     public List <UsuarioResidencialDTO> obtenerUsuariosResidenciales() throws Exception {
         List <UsuarioResidencialDTO> usuariosResidencialesDTO = new ArrayList<>();
-        for (UsuarioResidencial usuarioResidencial : usuariosResidenciales){
-            UsuarioResidencialDTO usuarioResidencialDTO = parsearADTO(usuarioResidencial);
-            usuariosResidencialesDTO.add(usuarioResidencialDTO);
+        for (Usuario usuario : usuarios){
+            if (usuario instanceof UsuarioResidencial) {
+                UsuarioResidencialDTO usuarioResidencialDTO = parsearADTO((UsuarioResidencial) usuario);
+                usuariosResidencialesDTO.add(usuarioResidencialDTO);
+            }
         }
 
         return usuariosResidencialesDTO;
