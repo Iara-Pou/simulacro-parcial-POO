@@ -43,75 +43,83 @@ public class AgregarUsuarioResidencial extends JFrame {
 
     public AgregarUsuarioResidencial() {
         super("Agregar Usuario Residencial");
-        setLayout(new GridLayout(10, 2, 10, 10));
+        setLayout(new BorderLayout());
         setSize(400, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        setResizable(false);
+
+        JPanel panel = new JPanel(new GridLayout(10, 2, 10, 10));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         //crea label nombre
         nombreLabel = new JLabel("Nombre:");
-        add(nombreLabel);
+        panel.add(nombreLabel);
         nombreTXT = new JTextField();
-        add(nombreTXT);
+        panel.add(nombreTXT);
 
         //crea label DNI
         DNILabel = new JLabel("DNI:");
-        add(DNILabel);
+        panel.add(DNILabel);
         DNITXT = new JTextField();
-        add(DNITXT);
+        panel.add(DNITXT);
 
         //crea label calle
         calleLabel = new JLabel("Calle:");
-        add(calleLabel);
+        panel.add(calleLabel);
         calleTXT = new JTextField();
-        add(calleTXT);
+        panel.add(calleTXT);
 
         //crea label altura
         alturaLabel = new JLabel("Altura:");
-        add(alturaLabel);
+        panel.add(alturaLabel);
         alturaTXT = new JTextField();
-        add(alturaTXT);
+        panel.add(alturaTXT);
 
         //crea label piso
         pisoLabel = new JLabel("Piso:");
-        add(pisoLabel);
+        panel.add(pisoLabel);
         pisoTXT = new JTextField();
-        add(pisoTXT);
+        panel.add(pisoTXT);
 
         //crea label depto
         deptoLabel = new JLabel("Depto:");
-        add(deptoLabel);
+        panel.add(deptoLabel);
         deptoTXT = new JTextField();
-        add(deptoTXT);
+        panel.add(deptoTXT);
 
         //crea label codigoPostal
         codigoPostalLabel = new JLabel("Codigo Postal:");
-        add(codigoPostalLabel);
+        panel.add(codigoPostalLabel);
         codigoPostalTXT = new JTextField();
-        add(codigoPostalTXT);
+        panel.add(codigoPostalTXT);
 
         //crea label localidad
         localidadLabel = new JLabel("Localidad:");
-        add(localidadLabel);
+        panel.add(localidadLabel);
         localidadTXT = new JTextField();
-        add(localidadTXT);
+        panel.add(localidadTXT);
 
         //crea label Provincia
         provinciaLabel = new JLabel("Provincia:");
-        add(provinciaLabel);
+        panel.add(provinciaLabel);
         provinciaTXT = new JTextField();
-        add(provinciaTXT);
+        panel.add(provinciaTXT);
 
         //accion Aceptar
         imprimir = new JButton("Aceptar");
-        add(imprimir);
+        panel.add(imprimir);
 
         //accion Cancelar
         cancelar = new JButton("Cancelar");
-        add(cancelar);
+        panel.add(cancelar);
 
         imprimir.addActionListener(e -> manejarEnvio());
         cancelar.addActionListener( e -> cancelar());
+
+        add(panel, BorderLayout.CENTER);
+        pack();
+        setSize(500, getHeight());
         setVisible(true);
     }
 
