@@ -103,4 +103,17 @@ class EmpresaElectricaControllerTest {
                 () -> assertEquals(esperado.getProvincia(), resultado.getProvincia())
         );
     }
+
+    @Test
+    @DisplayName("No se debe poder agregar un usuario residencial repetido")
+    void noAgregarUsuarioResidencialRepetido() throws Exception {
+        empresaElectricaController.crearUsuarioResidencial(usuarioResidencialDTO);
+
+        Exception exception = assertThrows(UsuarioRepetidoException.class, () -> {
+            empresaElectricaController.crearUsuarioResidencial(usuarioResidencialDTO);
+        });
+
+        assertEquals("El usuario ya existe.", exception.getMessage());
+    }
+
 }
