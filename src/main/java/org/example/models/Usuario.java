@@ -3,10 +3,8 @@ package org.example.models;
 import java.util.Objects;
 
 public abstract class Usuario {
-    private static int idActual;
-    private int id;
-    private String nombre;
-    private int DNI;
+    private Medidor medidor;
+    private int nroUsuario;
     private String calle;
     private int altura;
     private int piso;
@@ -16,19 +14,15 @@ public abstract class Usuario {
     private String provincia;
 
     public boolean equals(Usuario usuario) {
-        return DNI == usuario.DNI
-                && altura == usuario.altura
+        return altura == usuario.altura
                 && piso == usuario.piso
                 && codigoPostal == usuario.codigoPostal
-                && Objects.equals(nombre, usuario.nombre)
                 && Objects.equals(calle, usuario.calle)
                 && Objects.equals(depto, usuario.depto)
                 && Objects.equals(localidad, usuario.localidad)
                 && Objects.equals(provincia, usuario.provincia);
     }
-    public Usuario(String nombre, int DNI, String calle, int altura, int piso, String depto, int codigoPostal, String localidad, String provincia) {
-        this.nombre = nombre;
-        this.DNI = DNI;
+    public Usuario(String calle, int altura, int piso, String depto, int codigoPostal, String localidad, String provincia) {
         this.calle = calle;
         this.altura = altura;
         this.piso = piso;
@@ -36,15 +30,6 @@ public abstract class Usuario {
         this.codigoPostal = codigoPostal;
         this.localidad = localidad;
         this.provincia = provincia;
-        this.id = idActual++;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public int getDNI() {
-        return DNI;
     }
 
     public String getCalle() {
@@ -75,6 +60,14 @@ public abstract class Usuario {
         return provincia;
     }
 
+    public int getNroUsuario(){
+        return nroUsuario;
+    }
+
+    public void setNroUsuario(int nroUsuario) {
+        this.nroUsuario = nroUsuario;
+    }
+
     public int obtenerUltimoConsumo(int anio, int bimestre) {
         return 0;
     }
@@ -82,9 +75,7 @@ public abstract class Usuario {
     @Override
     public String toString() {
         return "Usuario{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", DNI=" + DNI +
+                "id=" + nroUsuario +
                 ", calle='" + calle + '\'' +
                 ", altura=" + altura +
                 ", piso=" + piso +
@@ -93,9 +84,5 @@ public abstract class Usuario {
                 ", localidad='" + localidad + '\'' +
                 ", provincia='" + provincia + '\'' +
                 '}';
-    }
-
-    public static void setIdActual(int idActual) {
-        Usuario.idActual = idActual;
     }
 }

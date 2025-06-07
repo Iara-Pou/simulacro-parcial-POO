@@ -8,11 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmpresaElectricaController {
-
     private List<Usuario> usuarios;
     private List<Tarifa> tarifas;
     private List<Factura> facturas;
     private static EmpresaElectricaController INSTANCE;
+
+    private int idUsuarioActual = 0;
 
     private EmpresaElectricaController() {
         usuarios = new ArrayList<>();
@@ -25,13 +26,12 @@ public class EmpresaElectricaController {
 
     public void reset() {
         usuarios = new ArrayList<>();
-        Usuario.setIdActual(0);
     }
 
     /*
      * Metodos del controlador
      * */
-    public void crearUsuarioResidencial(UsuarioResidencialDTO usuarioResidencialDTO) throws Exception {
+    public int crearUsuarioResidencial(UsuarioResidencialDTO usuarioResidencialDTO) throws Exception {
         UsuarioResidencial usuarioNuevo;
 
         try {
@@ -40,22 +40,42 @@ public class EmpresaElectricaController {
             throw new Exception(e.getMessage());
         }
 
-        if (existeUsuarioResidencial(usuarioNuevo)) throw new UsuarioRepetidoException("El usuario ya existe.");
+        if (existeUsuarioResidencial(usuarioNuevo.getDNI())) throw new UsuarioRepetidoException("El usuario ya existe.");
 
-        usuarios.add(usuarioNuevo);
+        asignarIdUsuario(usuarioNuevo);
+
         System.out.println("USUARIO AGREGADO: " + usuarioNuevo);
+        usuarios.add(usuarioNuevo);
+        return usuarioNuevo.getNroUsuario();
 
+    }
+
+    private void asignarIdUsuario(UsuarioResidencial usuarioNuevo) {
+        usuarioNuevo.setNroUsuario(idUsuarioActual);
+        idUsuarioActual++;
     }
 
     public int crearUsuarioIndustrial() {
         return 0;
     }
 
-    public boolean existeUsuarioResidencial(UsuarioResidencial usuarioNuevo) throws Exception {
+    public Usuario buscarUsuario(int nroUsuario){
+        return null;
+    }
+
+    public float consultarConsumo(int nroUsuario, int anio, int bimestre){
+        return Float.parseFloat("");
+    }
+
+    public boolean existeUsuarioResidencial(int DNI) throws Exception {
         List<UsuarioResidencial> usuariosResidenciales = obtenerUsuariosResidenciales();
         for (UsuarioResidencial usuario : usuariosResidenciales) {
-            if (usuarioNuevo.equals(usuario)) return true;
+            if (DNI == usuario.getDNI()) return true;
         }
+        return false;
+    }
+
+    public boolean existeUsuarioIndustrial(String cuit){
         return false;
     }
 

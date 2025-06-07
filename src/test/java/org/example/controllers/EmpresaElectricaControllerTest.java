@@ -58,7 +58,7 @@ class EmpresaElectricaControllerTest {
         assertAll("Verificar que el usuario se agregó correctamente",
                 () -> assertNotNull(empresaElectricaController.obtenerUsuariosResidenciales()),
                 () -> assertEquals(1, empresaElectricaController.obtenerUsuariosResidenciales().size()),
-                () -> assertTrue(empresaElectricaController.existeUsuarioResidencial(usuarioResidencial))
+                () -> assertTrue(empresaElectricaController.existeUsuarioResidencial(usuarioResidencial.getDNI()))
         );
     }
 
@@ -88,7 +88,7 @@ class EmpresaElectricaControllerTest {
         empresaElectricaController.crearUsuarioResidencial(usuarioResidencialDTO);
 
         UsuarioResidencial usuarioResidencial = empresaElectricaController.toModel(usuarioResidencialDTO);
-        boolean existe = empresaElectricaController.existeUsuarioResidencial(usuarioResidencial);
+        boolean existe = empresaElectricaController.existeUsuarioResidencial(usuarioResidencial.getDNI());
 
         assertTrue(existe, "El usuario debería existir en la lista");
     }

@@ -8,7 +8,6 @@ public class Medidor {
         private Date fechaInstalacion;
         private List<Medicion> mediciones;
 
-        //a declarar
         public static int obtenerUltimoConsumo (int anio, int bimestre){
             return 0;
         }
