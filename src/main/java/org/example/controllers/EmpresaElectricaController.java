@@ -77,26 +77,6 @@ public class EmpresaElectricaController {
         return usuarioResidencial;
     }
 
-    public UsuarioResidencialDTO toDTO(UsuarioResidencial usuarioResidencial) throws Exception {
-        UsuarioResidencialDTO usuarioResidencialDTO = null;
-        try {
-            usuarioResidencialDTO = new UsuarioResidencialDTO(
-                    usuarioResidencial.getNombre(),
-                    usuarioResidencial.getDNI(),
-                    usuarioResidencial.getCalle(),
-                    usuarioResidencial.getAltura(),
-                    usuarioResidencial.getPiso(),
-                    usuarioResidencial.getDepto(),
-                    usuarioResidencial.getCodigoPostal(),
-                    usuarioResidencial.getLocalidad(),
-                    usuarioResidencial.getProvincia());
-        } catch (Exception e) {
-            throw new Exception("Los datos ingresados son inválidos");
-        }
-
-        return usuarioResidencialDTO;
-    }
-
     public List<UsuarioResidencial> obtenerUsuariosResidenciales() throws Exception {
         List<UsuarioResidencial> usuariosResidenciales = new ArrayList<>();
         for (Usuario usuario : usuarios) {
