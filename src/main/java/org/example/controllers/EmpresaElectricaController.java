@@ -25,6 +25,7 @@ public class EmpresaElectricaController {
 
     public void reset() {
         usuarios = new ArrayList<>();
+        Usuario.setIdActual(0);
     }
 
     /*

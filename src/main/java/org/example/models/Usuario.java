@@ -47,10 +47,6 @@ public abstract class Usuario {
         return DNI;
     }
 
-    public static int getIdActual() {
-        return idActual;
-    }
-
     public String getCalle() {
         return calle;
     }
@@ -97,5 +93,9 @@ public abstract class Usuario {
                 ", localidad='" + localidad + '\'' +
                 ", provincia='" + provincia + '\'' +
                 '}';
+    }
+
+    public static void setIdActual(int idActual) {
+        Usuario.idActual = idActual;
     }
 }
