@@ -20,13 +20,13 @@ class EmpresaElectricaControllerTest {
         usuarioResidencialDTO = new UsuarioResidencialDTO(
                 "Iara",
                 43627825,
-                        "Calle Falsa",
-                        123,
-                        1,
-                        "A",
-                        111,
-                        "Lomas",
-                        "Buenos Aires"
+                "Calle Falsa",
+                123,
+                1,
+                "A",
+                111,
+                "Lomas",
+                "Buenos Aires"
         );
 
         usuarioResidencial = new UsuarioResidencial(
@@ -49,7 +49,7 @@ class EmpresaElectricaControllerTest {
     }
 
     @Test
-    @DisplayName("Agregar un usuario y verificar que fue almacenado correctamente")
+    @DisplayName("Dado que agrego un usuario, cuando verifico que usuarios contiene, entonces el registro pertenece al usuario agregado.")
     void agregarUsuarioResidencial() throws Exception {
         empresaElectricaController.crearUsuarioResidencial(usuarioResidencialDTO);
 
@@ -63,7 +63,27 @@ class EmpresaElectricaControllerTest {
     }
 
     @Test
-    @DisplayName("Verificar si un usuario ya existe después de agregarlo")
+    @DisplayName("Dado que agrego dos usuarios, cuando verifico cuantos usuarios se almacenaron, entonces el número es 2.")
+    void agregarDosUsuariosResidenciales() throws Exception {
+        UsuarioResidencialDTO usuarioResidencialDTO1 = new UsuarioResidencialDTO(
+                "Ara",
+                43627,
+                "Falsa",
+                222,
+                1,
+                "A",
+                111,
+                "Lomas",
+                "Buenos Aires"
+        );
+
+        empresaElectricaController.crearUsuarioResidencial(usuarioResidencialDTO);
+        empresaElectricaController.crearUsuarioResidencial(usuarioResidencialDTO1);
+        assertEquals(2, empresaElectricaController.obtenerUsuariosResidenciales().size());
+    }
+
+    @Test
+    @DisplayName("Dado que agrego un usuario, cuando consulto si existe, el sistema informa que es el caso.")
     void usuarioResidencialExiste() throws Exception {
         empresaElectricaController.crearUsuarioResidencial(usuarioResidencialDTO);
 
@@ -74,7 +94,7 @@ class EmpresaElectricaControllerTest {
     }
 
     @Test
-    @DisplayName("Parsear un DTO a UsuarioResidencial debería mantener los datos")
+    @DisplayName("Dado que parse un DTO a UsuarioResidencial, cuando comparo los datos, debería mantener los mismos.")
     void parsearDTO() throws Exception {
         UsuarioResidencial esperado = new UsuarioResidencial(
                 usuarioResidencialDTO.getNombre(),
@@ -105,7 +125,7 @@ class EmpresaElectricaControllerTest {
     }
 
     @Test
-    @DisplayName("No se debe poder agregar un usuario residencial repetido")
+    @DisplayName("Dado que intento agregar un usuario residencial repetido, entonces retorna una excepción.")
     void noAgregarUsuarioResidencialRepetido() throws Exception {
         empresaElectricaController.crearUsuarioResidencial(usuarioResidencialDTO);
 
