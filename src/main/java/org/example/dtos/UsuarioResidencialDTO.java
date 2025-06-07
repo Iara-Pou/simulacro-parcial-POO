@@ -1,16 +1,27 @@
 package org.example.dtos;
 
-import org.example.models.Direccion;
-
 public class UsuarioResidencialDTO {
     private String nombre;
     private int DNI;
-    private Direccion direccion;
+    private String calle;
+    private int altura;
+    private int piso;
+    private String depto;
+    private int codigoPostal;
+    private String localidad;
+    private String provincia;
 
-    public UsuarioResidencialDTO(String nombre, int DNI, Direccion direccion) {
+
+    public UsuarioResidencialDTO(String nombre, int DNI, String calle, int altura, int piso, String depto, int codigoPostal, String localidad, String provincia) {
         this.nombre = nombre;
         this.DNI = DNI;
-        this.direccion = direccion;
+        this.calle = calle;
+        this.altura = altura;
+        this.piso = piso;
+        this.depto = depto;
+        this.codigoPostal = codigoPostal;
+        this.localidad = localidad;
+        this.provincia = provincia;
     }
 
     public String getNombre() {
@@ -21,8 +32,33 @@ public class UsuarioResidencialDTO {
         return DNI;
     }
 
-    public Direccion getDireccion() {
-        return direccion;
+
+    public String getCalle() {
+        return calle;
+    }
+
+    public int getAltura() {
+        return altura;
+    }
+
+    public int getPiso() {
+        return piso;
+    }
+
+    public String getDepto() {
+        return depto;
+    }
+
+    public int getCodigoPostal() {
+        return codigoPostal;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public String getProvincia() {
+        return provincia;
     }
 
     @Override
@@ -30,7 +66,13 @@ public class UsuarioResidencialDTO {
         return "UsuarioResidencialDTO{" +
                 "nombre='" + nombre + '\'' +
                 ", DNI=" + DNI +
-                ", direccion=" + direccion +
+                ", calle='" + calle + '\'' +
+                ", altura=" + altura +
+                ", piso=" + piso +
+                ", depto='" + depto + '\'' +
+                ", codigoPostal=" + codigoPostal +
+                ", localidad='" + localidad + '\'' +
+                ", provincia='" + provincia + '\'' +
                 '}';
     }
 }

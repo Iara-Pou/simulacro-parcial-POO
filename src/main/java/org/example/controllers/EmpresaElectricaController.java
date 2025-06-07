@@ -2,15 +2,16 @@ package org.example.controllers;
 
 import org.example.exceptions.UsuarioRepetidoException;
 import org.example.dtos.UsuarioResidencialDTO;
-import org.example.models.Usuario;
-import org.example.models.UsuarioIndustrial;
-import org.example.models.UsuarioResidencial;
+import org.example.models.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class EmpresaElectricaController {
+
     private List<Usuario> usuarios;
+    private List<Tarifa> tarifas;
+    private List<Factura> facturas;
     private static EmpresaElectricaController INSTANCE;
 
     private EmpresaElectricaController() {
@@ -22,7 +23,7 @@ public class EmpresaElectricaController {
         return INSTANCE;
     }
 
-    public void reset(){
+    public void reset() {
         usuarios = new ArrayList<>();
     }
 
@@ -30,7 +31,7 @@ public class EmpresaElectricaController {
     /*
      * Metodos del controlador
      * */
-    public void agregarUsuarioResidencial(UsuarioResidencialDTO usuarioResidencialDTO) throws Exception {
+    public void crearUsuarioResidencial(UsuarioResidencialDTO usuarioResidencialDTO) throws Exception {
         UsuarioResidencial usuarioNuevo;
 
         try {
@@ -39,26 +40,24 @@ public class EmpresaElectricaController {
             throw new Exception(e.getMessage());
         }
 
-        if (usuarioResidencialExiste(usuarioNuevo)) throw new UsuarioRepetidoException("El usuario ya existe.");
+        if (existeUsuarioResidencial(usuarioNuevo)) throw new UsuarioRepetidoException("El usuario ya existe.");
 
         usuarios.add(usuarioNuevo);
         System.out.println("USUARIO AGREGADO: " + usuarioNuevo);
 
     }
 
-    //si existe por datos, dar error
-    public boolean usuarioResidencialExiste(UsuarioResidencial usuarioNuevo) {
-        for (Usuario usuario : usuarios) {
-            if (usuario instanceof UsuarioResidencial &&
-                    usuariosSonIguales(usuarioNuevo, usuario)) return true;
-        }
-        return false;
+    public int crearUsuarioIndustrial() {
+        return 0;
     }
 
-    public boolean usuariosSonIguales(Usuario usuario1, Usuario usuario2) {
-        return usuario1.getDNI() == usuario2.getDNI() &&
-                usuario1.getNombre().equals(usuario2.getNombre()) &&
-                usuario1.getDireccion().hashCode() == (usuario2.getDireccion()).hashCode();
+    //si existe por datos, dar error
+    public boolean existeUsuarioResidencial(UsuarioResidencial usuarioNuevo) {
+        for (Usuario usuario : usuarios) {
+            if (usuario instanceof UsuarioResidencial &&
+                    usuarioNuevo.equals(usuario)) return true;
+        }
+        return false;
     }
 
     public UsuarioResidencial parsearDTO(UsuarioResidencialDTO usuarioResidencialDTO) throws Exception {
@@ -66,7 +65,13 @@ public class EmpresaElectricaController {
         try {
             usuarioResidencial = new UsuarioResidencial(usuarioResidencialDTO.getNombre(),
                     usuarioResidencialDTO.getDNI(),
-                    usuarioResidencialDTO.getDireccion());
+                    usuarioResidencialDTO.getCalle(),
+                    usuarioResidencialDTO.getAltura(),
+                    usuarioResidencialDTO.getPiso(),
+                    usuarioResidencialDTO.getDepto(),
+                    usuarioResidencialDTO.getCodigoPostal(),
+                    usuarioResidencialDTO.getLocalidad(),
+                    usuarioResidencialDTO.getProvincia());
         } catch (Exception e) {
             throw new Exception("Los datos ingresados son inválidos");
         }
@@ -77,9 +82,16 @@ public class EmpresaElectricaController {
     public UsuarioResidencialDTO parsearADTO(UsuarioResidencial usuarioResidencial) throws Exception {
         UsuarioResidencialDTO usuarioResidencialDTO = null;
         try {
-            usuarioResidencialDTO = new UsuarioResidencialDTO(usuarioResidencial.getNombre(),
+            usuarioResidencialDTO = new UsuarioResidencialDTO(
+                    usuarioResidencial.getNombre(),
                     usuarioResidencial.getDNI(),
-                    usuarioResidencial.getDireccion());
+                    usuarioResidencial.getCalle(),
+                    usuarioResidencial.getAltura(),
+                    usuarioResidencial.getPiso(),
+                    usuarioResidencial.getDepto(),
+                    usuarioResidencial.getCodigoPostal(),
+                    usuarioResidencial.getLocalidad(),
+                    usuarioResidencial.getProvincia());
         } catch (Exception e) {
             throw new Exception("Los datos ingresados son inválidos");
         }
@@ -87,9 +99,9 @@ public class EmpresaElectricaController {
         return usuarioResidencialDTO;
     }
 
-    public List <UsuarioResidencialDTO> obtenerUsuariosResidenciales() throws Exception {
-        List <UsuarioResidencialDTO> usuariosResidencialesDTO = new ArrayList<>();
-        for (Usuario usuario : usuarios){
+    public List<UsuarioResidencialDTO> obtenerUsuariosResidenciales() throws Exception {
+        List<UsuarioResidencialDTO> usuariosResidencialesDTO = new ArrayList<>();
+        for (Usuario usuario : usuarios) {
             if (usuario instanceof UsuarioResidencial) {
                 UsuarioResidencialDTO usuarioResidencialDTO = parsearADTO((UsuarioResidencial) usuario);
                 usuariosResidencialesDTO.add(usuarioResidencialDTO);
