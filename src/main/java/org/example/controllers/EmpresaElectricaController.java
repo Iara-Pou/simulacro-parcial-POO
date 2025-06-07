@@ -35,7 +35,7 @@ public class EmpresaElectricaController {
         UsuarioResidencial usuarioNuevo;
 
         try {
-            usuarioNuevo = parsearDTO(usuarioResidencialDTO);
+            usuarioNuevo = toModel(usuarioResidencialDTO);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -51,16 +51,15 @@ public class EmpresaElectricaController {
         return 0;
     }
 
-    //si existe por datos, dar error
-    public boolean existeUsuarioResidencial(UsuarioResidencial usuarioNuevo) {
-        for (Usuario usuario : usuarios) {
-            if (usuario instanceof UsuarioResidencial &&
-                    usuarioNuevo.equals(usuario)) return true;
+    public boolean existeUsuarioResidencial(UsuarioResidencial usuarioNuevo) throws Exception {
+        List<UsuarioResidencial> usuariosResidenciales= obtenerUsuariosResidenciales();
+        for (UsuarioResidencial usuario : usuariosResidenciales) {
+            if (usuarioNuevo.equals(usuario)) return true;
         }
         return false;
     }
 
-    public UsuarioResidencial parsearDTO(UsuarioResidencialDTO usuarioResidencialDTO) throws Exception {
+    public UsuarioResidencial toModel(UsuarioResidencialDTO usuarioResidencialDTO) throws Exception {
         UsuarioResidencial usuarioResidencial;
         try {
             usuarioResidencial = new UsuarioResidencial(usuarioResidencialDTO.getNombre(),
@@ -79,7 +78,7 @@ public class EmpresaElectricaController {
         return usuarioResidencial;
     }
 
-    public UsuarioResidencialDTO parsearADTO(UsuarioResidencial usuarioResidencial) throws Exception {
+    public UsuarioResidencialDTO toDTO(UsuarioResidencial usuarioResidencial) throws Exception {
         UsuarioResidencialDTO usuarioResidencialDTO = null;
         try {
             usuarioResidencialDTO = new UsuarioResidencialDTO(
@@ -99,15 +98,13 @@ public class EmpresaElectricaController {
         return usuarioResidencialDTO;
     }
 
-    public List<UsuarioResidencialDTO> obtenerUsuariosResidenciales() throws Exception {
-        List<UsuarioResidencialDTO> usuariosResidencialesDTO = new ArrayList<>();
+    public List<UsuarioResidencial> obtenerUsuariosResidenciales() throws Exception {
+        List<UsuarioResidencial> usuariosResidenciales = new ArrayList<>();
         for (Usuario usuario : usuarios) {
             if (usuario instanceof UsuarioResidencial) {
-                UsuarioResidencialDTO usuarioResidencialDTO = parsearADTO((UsuarioResidencial) usuario);
-                usuariosResidencialesDTO.add(usuarioResidencialDTO);
+                usuariosResidenciales.add((UsuarioResidencial) usuario);
             }
         }
-
-        return usuariosResidencialesDTO;
+        return usuariosResidenciales;
     }
 }

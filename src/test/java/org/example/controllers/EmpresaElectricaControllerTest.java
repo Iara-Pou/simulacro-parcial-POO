@@ -52,7 +52,7 @@ class EmpresaElectricaControllerTest {
     void agregarUsuarioResidencial() throws Exception {
         empresaElectricaController.crearUsuarioResidencial(usuarioResidencialDTO);
 
-        UsuarioResidencial usuarioResidencial = empresaElectricaController.parsearDTO(usuarioResidencialDTO);
+        UsuarioResidencial usuarioResidencial = empresaElectricaController.toModel(usuarioResidencialDTO);
 
         assertAll("Verificar que el usuario se agregó correctamente",
                 () -> assertNotNull(empresaElectricaController.obtenerUsuariosResidenciales()),
@@ -66,7 +66,7 @@ class EmpresaElectricaControllerTest {
     void usuarioResidencialExiste() throws Exception {
         empresaElectricaController.crearUsuarioResidencial(usuarioResidencialDTO);
 
-        UsuarioResidencial usuarioResidencial = empresaElectricaController.parsearDTO(usuarioResidencialDTO);
+        UsuarioResidencial usuarioResidencial = empresaElectricaController.toModel(usuarioResidencialDTO);
         boolean existe = empresaElectricaController.existeUsuarioResidencial(usuarioResidencial);
 
         assertTrue(existe, "El usuario debería existir en la lista");
@@ -87,7 +87,7 @@ class EmpresaElectricaControllerTest {
                 usuarioResidencialDTO.getProvincia()
         );
 
-        UsuarioResidencial resultado = empresaElectricaController.parsearDTO(usuarioResidencialDTO);
+        UsuarioResidencial resultado = empresaElectricaController.toModel(usuarioResidencialDTO);
 
         assertAll("Comparar campos del usuario parseado",
                 () -> assertNotNull(resultado),
