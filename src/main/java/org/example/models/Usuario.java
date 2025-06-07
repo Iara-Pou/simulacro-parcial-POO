@@ -1,5 +1,7 @@
 package org.example.models;
 
+import java.util.Objects;
+
 public abstract class Usuario {
     private static int idActual;
     private int id;
@@ -13,7 +15,17 @@ public abstract class Usuario {
     private String localidad;
     private String provincia;
 
-
+    public boolean equals(Usuario usuario) {
+        return DNI == usuario.DNI
+                && altura == usuario.altura
+                && piso == usuario.piso
+                && codigoPostal == usuario.codigoPostal
+                && Objects.equals(nombre, usuario.nombre)
+                && Objects.equals(calle, usuario.calle)
+                && Objects.equals(depto, usuario.depto)
+                && Objects.equals(localidad, usuario.localidad)
+                && Objects.equals(provincia, usuario.provincia);
+    }
     public Usuario(String nombre, int DNI, String calle, int altura, int piso, String depto, int codigoPostal, String localidad, String provincia) {
         this.nombre = nombre;
         this.DNI = DNI;
@@ -67,7 +79,7 @@ public abstract class Usuario {
         return provincia;
     }
 
-    public int obtenerUltimoConsumo(int anio, int bimestre){
+    public int obtenerUltimoConsumo(int anio, int bimestre) {
         return 0;
     }
 

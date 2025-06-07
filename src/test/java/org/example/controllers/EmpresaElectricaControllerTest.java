@@ -1,6 +1,7 @@
 package org.example.controllers;
 
 import org.example.dtos.UsuarioResidencialDTO;
+import org.example.exceptions.UsuarioRepetidoException;
 import org.example.models.UsuarioResidencial;
 import org.junit.jupiter.api.*;
 

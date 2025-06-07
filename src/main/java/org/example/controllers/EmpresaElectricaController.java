@@ -27,7 +27,6 @@ public class EmpresaElectricaController {
         usuarios = new ArrayList<>();
     }
 
-
     /*
      * Metodos del controlador
      * */
@@ -52,7 +51,7 @@ public class EmpresaElectricaController {
     }
 
     public boolean existeUsuarioResidencial(UsuarioResidencial usuarioNuevo) throws Exception {
-        List<UsuarioResidencial> usuariosResidenciales= obtenerUsuariosResidenciales();
+        List<UsuarioResidencial> usuariosResidenciales = obtenerUsuariosResidenciales();
         for (UsuarioResidencial usuario : usuariosResidenciales) {
             if (usuarioNuevo.equals(usuario)) return true;
         }
